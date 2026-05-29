@@ -611,12 +611,12 @@ body {
   color: var(--text);
 }
 
-/* Primary — Toss blue, 눈에 띄는 CTA */
+/* Primary — 연한 파란색 → 호버 시 진하게 */
 .btn-primary {
-  background: var(--accent);
-  color: var(--white);
+  background: var(--blue-200);
+  color: var(--blue-700);
   border-color: transparent;
-  box-shadow: 0 2px 12px rgba(49, 130, 246, 0.35), 0 1px 3px rgba(49, 130, 246, 0.2);
+  box-shadow: none;
   font-weight: 700;
   font-size: 14px;
   padding: 11px 20px;
@@ -625,15 +625,17 @@ body {
 }
 
 .btn-primary:hover {
-  background: var(--blue-600);
-  box-shadow: 0 6px 20px rgba(49, 130, 246, 0.4), 0 1px 4px rgba(49, 130, 246, 0.2);
-  transform: translateY(-1px);
+  background: var(--accent);
+  color: var(--white);
+  box-shadow: none;
+  transform: none;
 }
 
 .btn-primary:active {
-  transform: scale(0.97) translateY(0);
-  background: var(--blue-700);
-  box-shadow: 0 1px 4px rgba(49, 130, 246, 0.2);
+  transform: scale(0.97);
+  background: var(--blue-600);
+  color: var(--white);
+  box-shadow: none;
 }
 
 /* ── Responsive ── */
