@@ -456,13 +456,16 @@ canvas#c {
     color var(--dur) var(--ease);
 }
 
-.btn:hover {
+/* studio 전용 hover/active — setup 화면에 영향 없도록 스코프 제한 */
+#studioScreen .btn:hover,
+.confirm-dialog .btn:hover {
   background: var(--grey-100);
   border-color: var(--grey-300);
   color: var(--text);
 }
 
-.btn:active {
+#studioScreen .btn:active,
+.confirm-dialog .btn:active {
   transform: scale(0.96);
   background: var(--accent);
   border-color: var(--accent);

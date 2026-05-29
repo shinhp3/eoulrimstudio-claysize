@@ -26,21 +26,21 @@ body.view-studio #studioScreen { display: block; }
   height: 100dvh;
 }
 
-/* ── btn-primary: 가장 마지막에 정의해 studio.css .btn 덮어쓰기 방지 ── */
-.btn-primary {
-  background: #93c5fd !important;  /* blue-300: 연한 파란색 */
-  color: #1d4ed8 !important;       /* blue-700: 진한 파란 텍스트 */
-  border-color: transparent !important;
-  box-shadow: none !important;
+/* btn-primary: setup 화면 전용 CTA 버튼 */
+#setupScreen .btn-primary {
+  background: #93c5fd;   /* 연한 파란색 */
+  color: #1d4ed8;
+  border-color: transparent;
+  box-shadow: none;
 }
 
-.btn-primary:hover {
-  background: #3182f6 !important;  /* blue-500: 진하게 */
-  color: #ffffff !important;
+#setupScreen .btn-primary:hover {
+  background: #3182f6;   /* 진한 파란색 */
+  color: #ffffff;
 }
 
-.btn-primary:active {
-  background: #1b64da !important;
-  color: #ffffff !important;
+#setupScreen .btn-primary:active {
+  background: #1b64da;
+  color: #ffffff;
   transform: scale(0.97);
 }
