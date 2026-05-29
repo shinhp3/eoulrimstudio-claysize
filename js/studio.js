@@ -73,7 +73,7 @@ renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.45;
+renderer.toneMappingExposure = 1.1;
 resizeRenderer();
 
 window.addEventListener('resize', resizeRenderer);
@@ -94,13 +94,31 @@ if (viewportEl) {
 }
 
 // ── Lights ────────────────────────────────────────────────────────────────────
-scene.add(new THREE.AmbientLight(0xffffff, 2.4));
-const key = new THREE.SpotLight(0xffffff, 4.0, 500, Math.PI/4.2, 0.5, 1.0);
-key.position.set(25, 50, 35); key.castShadow = true;
-key.shadow.mapSize.set(1024,1024); key.shadow.bias = -0.0008;
-scene.add(key); scene.add(key.target);
-const fill = new THREE.DirectionalLight(0xe8f3ff, 1.0);
-fill.position.set(-25, 15, -10);
+// 주변광: 낮게 유지해야 그림자가 살아남
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+// 하늘/바닥 반사광 (부드러운 bounce light)
+const hemi = new THREE.HemisphereLight(0xdbeafe, 0xf2f4f6, 0.6);
+scene.add(hemi);
+
+// 키 라이트 (DirectionalLight — SpotLight보다 일관된 그림자)
+const key = new THREE.DirectionalLight(0xffffff, 2.8);
+key.position.set(25, 50, 35);
+key.castShadow = true;
+key.shadow.mapSize.set(2048, 2048);
+key.shadow.bias = -0.001;
+key.shadow.normalBias = 0.02;
+key.shadow.camera.near = 1;
+key.shadow.camera.far = 200;
+key.shadow.camera.left   = -60;
+key.shadow.camera.right  =  60;
+key.shadow.camera.top    =  60;
+key.shadow.camera.bottom = -60;
+scene.add(key);
+
+// 보조광 (반대편 부드럽게 채우기)
+const fill = new THREE.DirectionalLight(0xe8f3ff, 0.6);
+fill.position.set(-20, 10, -15);
 scene.add(fill);
 
 // ── Scale: 1 Three.js unit = 1 cm ───────────────────────────────────────────
@@ -319,8 +337,7 @@ function redoProfile() {
 
 // ── Clay meshes: outer + inner wall (5mm) + solid bottom cap ────────────────
 const clayMat = new THREE.MeshStandardMaterial({
-  color: CLAY, roughness: 0.42, metalness: 0.08,
-  emissive: 0x0a3568, emissiveIntensity: 0.12
+  color: CLAY, roughness: 0.55, metalness: 0.0,
 });
 
 let clayGroup = null;
