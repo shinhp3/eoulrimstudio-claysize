@@ -308,8 +308,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  padding: 20px 18px;
+  gap: 10px;
+  padding: 18px 16px 16px;
   background: var(--surface);
   border: 1.5px solid var(--surface-border);
   border-radius: var(--radius);
@@ -319,30 +319,55 @@ body {
   transition:
     border-color var(--dur) var(--ease),
     box-shadow var(--dur) var(--ease),
-    transform 0.1s var(--ease);
+    transform 0.1s var(--ease),
+    background var(--dur) var(--ease);
   box-shadow: var(--shadow-xs);
 }
 
 .card-btn:hover {
   border-color: var(--blue-200);
   box-shadow: var(--shadow);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .card-btn:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
   box-shadow: var(--shadow-xs);
 }
 
 .card-btn.selected {
   border-color: var(--accent);
   background: var(--blue-50);
-  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.1), var(--shadow);
+  box-shadow: 0 0 0 3px rgba(49, 130, 246, 0.12), var(--shadow);
 }
 
-.card-btn__icon {
-  font-size: 28px;
-  line-height: 1;
+/* SVG 아이콘 컨테이너 */
+.card-btn__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--grey-50);
+  border: 1px solid var(--grey-100);
+  flex-shrink: 0;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.card-btn:hover .card-btn__icon-wrap {
+  background: var(--blue-50);
+  border-color: var(--blue-100);
+}
+
+.card-btn.selected .card-btn__icon-wrap {
+  background: var(--blue-50);
+  border-color: var(--blue-100);
+}
+
+.card-btn__icon-wrap svg {
+  width: 40px;
+  height: 40px;
 }
 
 .card-btn__name {
@@ -350,6 +375,7 @@ body {
   font-weight: 700;
   color: var(--text);
   letter-spacing: -0.02em;
+  margin-top: 2px;
 }
 
 .card-btn__desc {
@@ -585,26 +611,27 @@ body {
   color: var(--text);
 }
 
-/* Primary — Toss blue */
+/* Primary — Toss blue, 눈에 띄는 CTA */
 .btn-primary {
   background: var(--accent);
   color: var(--white);
   border-color: transparent;
-  box-shadow: 0 2px 10px rgba(49, 130, 246, 0.28);
+  box-shadow: 0 2px 12px rgba(49, 130, 246, 0.35), 0 1px 3px rgba(49, 130, 246, 0.2);
   font-weight: 700;
   font-size: 14px;
-  padding: 10px 18px;
+  padding: 11px 20px;
   flex-shrink: 0;
+  letter-spacing: -0.01em;
 }
 
 .btn-primary:hover {
   background: var(--blue-600);
-  box-shadow: 0 4px 16px rgba(49, 130, 246, 0.35);
+  box-shadow: 0 6px 20px rgba(49, 130, 246, 0.4), 0 1px 4px rgba(49, 130, 246, 0.2);
   transform: translateY(-1px);
 }
 
 .btn-primary:active {
-  transform: scale(0.97);
+  transform: scale(0.97) translateY(0);
   background: var(--blue-700);
   box-shadow: 0 1px 4px rgba(49, 130, 246, 0.2);
 }

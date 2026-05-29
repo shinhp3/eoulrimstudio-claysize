@@ -5,10 +5,33 @@
   const { CATEGORIES, CLAY_TYPES, firedToWet, wetToFired, getCategoryById, getPreset } = D;
 
   const ICONS = {
-    plate: '🍽',
-    bowl: '🥣',
-    vase: '🏺',
-    cylinder: '⬤',
+    plate: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="20" cy="28" rx="16" ry="3.5" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
+      <path d="M6 28 Q6 18 20 16 Q34 18 34 28" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5" stroke-linejoin="round"/>
+      <ellipse cx="20" cy="16" rx="14" ry="2.5" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
+    </svg>`,
+    bowl: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7 18 Q7 32 20 32 Q33 32 33 18 Z" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5" stroke-linejoin="round"/>
+      <ellipse cx="20" cy="18" rx="13" ry="3" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
+      <line x1="12" y1="33" x2="28" y2="33" stroke="#3182f6" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>`,
+    vase: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M15 8 Q15 10 13 13 Q8 19 8 26 Q8 34 20 34 Q32 34 32 26 Q32 19 27 13 Q25 10 25 8 Z" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5" stroke-linejoin="round"/>
+      <line x1="15" y1="8" x2="25" y2="8" stroke="#3182f6" stroke-width="1.5" stroke-linecap="round"/>
+      <ellipse cx="20" cy="8" rx="5" ry="1.5" fill="#dbeafe" stroke="#3182f6" stroke-width="1"/>
+    </svg>`,
+    cylinder: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="10" y="13" width="20" height="20" rx="2" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5"/>
+      <ellipse cx="20" cy="13" rx="10" ry="3" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
+      <ellipse cx="20" cy="33" rx="10" ry="3" fill="#dbeafe" stroke="#3182f6" stroke-width="1"/>
+    </svg>`,
+  };
+
+  const PRESET_ICONS = {
+    plate:     ICONS.plate,
+    ricebowl:  ICONS.bowl,
+    vase:      ICONS.vase,
+    cylinder:  ICONS.cylinder,
   };
 
   const state = {
@@ -170,7 +193,7 @@
     els.categoryGrid.innerHTML = CATEGORIES.map(
       (cat) => `
       <button type="button" class="card-btn" data-category="${cat.id}">
-        <span class="card-btn__icon">${ICONS[cat.id] ?? '◯'}</span>
+        <span class="card-btn__icon-wrap">${ICONS[cat.id] ?? ''}</span>
         <span class="card-btn__name">${cat.name}</span>
         <span class="card-btn__desc">${cat.description}</span>
       </button>`
@@ -193,6 +216,7 @@
       .map(
         (p) => `
       <button type="button" class="card-btn" data-preset="${p.id}">
+        <span class="card-btn__icon-wrap">${PRESET_ICONS[p.id] ?? ''}</span>
         <span class="card-btn__name">${p.name}</span>
         <span class="card-btn__desc">기본 ${p.defaultWidth} × ${p.defaultHeight} cm (성형)</span>
       </button>`
