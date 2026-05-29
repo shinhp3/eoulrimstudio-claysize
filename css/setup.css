@@ -611,10 +611,10 @@ body {
   color: var(--text);
 }
 
-/* Primary — 연한 파란색 → 호버 시 진하게 */
+/* Primary — 연한 파란색(기본) → 호버 시 진하게 */
 .btn-primary {
-  background: var(--blue-200);
-  color: var(--blue-700);
+  background: #60a5fa;
+  color: var(--white);
   border-color: transparent;
   box-shadow: none;
   font-weight: 700;

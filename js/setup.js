@@ -6,9 +6,9 @@
 
   const ICONS = {
     plate: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <ellipse cx="20" cy="28" rx="16" ry="3.5" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
-      <path d="M6 28 Q6 18 20 16 Q34 18 34 28" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5" stroke-linejoin="round"/>
-      <ellipse cx="20" cy="16" rx="14" ry="2.5" fill="#dbeafe" stroke="#3182f6" stroke-width="1.5"/>
+      <ellipse cx="20" cy="20" rx="16" ry="16" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5"/>
+      <ellipse cx="20" cy="20" rx="12" ry="12" fill="#dbeafe" stroke="#3182f6" stroke-width="1"/>
+      <ellipse cx="20" cy="20" rx="5" ry="5" fill="#bfdbfe" stroke="#3182f6" stroke-width="1"/>
     </svg>`,
     bowl: `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M7 18 Q7 32 20 32 Q33 32 33 18 Z" fill="#eff6ff" stroke="#3182f6" stroke-width="1.5" stroke-linejoin="round"/>
