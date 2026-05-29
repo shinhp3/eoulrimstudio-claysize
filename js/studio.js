@@ -1008,10 +1008,6 @@ function bindStudioControls() {
   document.getElementById('btnBackSetup').addEventListener('click', () => {
     if (window.ClaySize && window.ClaySize.showSetup) window.ClaySize.showSetup();
   });
-  const btnBackDesk = document.getElementById('btnBackSetupDesk');
-  if (btnBackDesk) btnBackDesk.addEventListener('click', () => {
-    if (window.ClaySize && window.ClaySize.showSetup) window.ClaySize.showSetup();
-  });
 }
 
 function applySession(session) {

@@ -16,24 +16,12 @@ body.view-studio {
   height: 100dvh;
 }
 
-body.view-studio #setupScreen {
-  display: none;
-}
+body.view-studio #setupScreen { display: none; }
+body.view-studio #studioScreen { display: block; }
 
-body.view-studio #studioScreen {
-  display: block;
-}
-
-#setupScreen {
-  min-height: 100dvh;
-}
+#setupScreen { min-height: 100dvh; }
 
 #studioScreen #app {
   width: 100%;
   height: 100dvh;
-}
-
-.back-link {
-  font-family: inherit;
-  cursor: pointer;
 }
