@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>ClaySize — 도자기 사이즈 계산</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="css/setup.css">
+<link rel="stylesheet" href="css/studio.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="view-setup">
+
+<!-- ── 설정 화면 ── -->
+<div id="setupScreen">
+  <div class="setup-app">
+    <header class="header">
+      <div class="header-brand">
+        <h1 class="brand-name">ClaySize</h1>
+        <p class="brand-sub">수축률을 반영한 도자기 사이즈 계산</p>
+      </div>
+      <div class="step-indicator" aria-label="진행 단계">
+        <div class="step active" data-step="1"><span>1</span> 형태</div>
+        <div class="step" data-step="2"><span>2</span> 프리셋</div>
+        <div class="step" data-step="3"><span>3</span> 사이즈</div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="panel active" id="step1" aria-labelledby="step1Title">
+        <h2 id="step1Title" class="panel-title">어떤 형태를 만들까요?</h2>
+        <p class="panel-desc">큰 형태 종류를 선택하세요. 이후 세부 프리셋을 고를 수 있습니다.</p>
+        <div class="category-grid" id="categoryGrid"></div>
+      </section>
+
+      <section class="panel" id="step2" aria-labelledby="step2Title">
+        <h2 id="step2Title" class="panel-title">프리셋 선택</h2>
+        <p class="panel-desc"><span id="selectedCategoryName">—</span> 중에서 시작할 형태를 고르세요.</p>
+        <div class="preset-grid" id="presetGrid"></div>
+        <div class="nav-actions">
+          <button type="button" class="btn btn-secondary" id="btnBackToCategory">← 형태 다시 선택</button>
+        </div>
+      </section>
+
+      <section class="panel" id="step3" aria-labelledby="step3Title">
+        <div class="panel-topbar">
+          <div class="panel-topbar-text">
+            <h2 id="step3Title" class="panel-title">사이즈 입력</h2>
+            <p class="panel-desc">먼저 <strong>성형 사이즈(수축 전)</strong>를 입력하세요. 완성 사이즈는 자동 계산되며, 완성 쪽을 입력하면 성형 사이즈가 역산됩니다.</p>
+          </div>
+          <div class="panel-actions panel-actions--top">
+            <button type="button" class="btn btn-secondary" id="btnBackToPreset">← 프리셋</button>
+            <button type="button" class="btn btn-primary" id="btnStartStudio">스튜디오 →</button>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-row">
+            <label class="form-label" for="claySelect">흙 종류</label>
+            <select class="form-select" id="claySelect"></select>
+          </div>
+          <div class="form-row form-row--custom" id="customShrinkRow" hidden>
+            <label class="form-label" for="customShrink">수축률 (%)</label>
+            <input class="form-input" type="number" id="customShrink" value="12" min="1" max="30" step="0.5">
+          </div>
+
+          <div class="size-group size-group--wet">
+            <div class="size-group-header">
+              <span class="size-group-title">성형 사이즈</span>
+              <span class="size-badge size-badge--wet">수축 전 · 습토</span>
+            </div>
+            <div class="size-inputs">
+              <div class="size-field">
+                <label class="form-label" for="setupWetWidthInput">가로 (직경)</label>
+                <div class="size-input-wrap">
+                  <input class="form-input form-input--size" type="number" id="setupWetWidthInput" value="19" min="0.5" max="40" step="0.5">
+                  <span class="unit">cm</span>
+                </div>
+              </div>
+              <div class="size-field">
+                <label class="form-label" for="setupWetHeightInput">높이</label>
+                <div class="size-input-wrap">
+                  <input class="form-input form-input--size" type="number" id="setupWetHeightInput" value="2.5" min="0.5" max="40" step="0.5">
+                  <span class="unit">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="size-sync-arrow" aria-hidden="true">⇅</div>
+
+          <div class="size-group size-group--fired">
+            <div class="size-group-header">
+              <span class="size-group-title">완성 사이즈</span>
+              <span class="size-badge">소성 후</span>
+            </div>
+            <div class="size-inputs">
+              <div class="size-field">
+                <label class="form-label" for="setupFiredWidthInput">가로 (직경)</label>
+                <div class="size-input-wrap">
+                  <input class="form-input form-input--size" type="number" id="setupFiredWidthInput" value="16.7" min="0.5" max="40" step="0.5">
+                  <span class="unit">cm</span>
+                </div>
+              </div>
+              <div class="size-field">
+                <label class="form-label" for="setupFiredHeightInput">높이</label>
+                <div class="size-input-wrap">
+                  <input class="form-input form-input--size" type="number" id="setupFiredHeightInput" value="2.2" min="0.5" max="40" step="0.5">
+                  <span class="unit">cm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-meta result-meta--inline">
+            <span id="shrinkInfo">수축률 12% · 백토</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ── 3D 스튜디오 ── -->
+<div id="studioScreen">
+  <div id="app">
+    <div id="viewport">
+      <canvas id="c"></canvas>
+
+      <button type="button" class="back-link ui-mobile-only" id="btnBackSetup" title="설정으로 돌아가기">← 설정</button>
+      <button type="button" class="back-link ui-desktop-only" id="btnBackSetupDesk" title="설정으로 돌아가기">← 설정으로</button>
+
+      <div id="profileWrap">
+        <div class="preview-label">사이즈 미리보기</div>
+        <div class="size-stats">
+          <div class="size-section">
+            <div class="size-section-title">완성 사이즈 <span class="size-badge">소성 후</span></div>
+            <div class="size-item">
+              <span class="size-key">최대 가로</span>
+              <span class="size-value"><span id="firedWidth">10.0</span> cm</span>
+            </div>
+            <div class="size-item">
+              <span class="size-key">실제 높이</span>
+              <span class="size-value"><span id="firedHeight">10.0</span> cm</span>
+            </div>
+          </div>
+          <div class="size-divider"></div>
+          <div class="size-section">
+            <div class="size-section-title">성형 사이즈 <span class="size-badge size-badge--wet">습토</span></div>
+            <div class="size-item">
+              <span class="size-key">최대 가로</span>
+              <span class="size-value"><span id="wetWidth">10.0</span> cm</span>
+            </div>
+            <div class="size-item">
+              <span class="size-key">실제 높이</span>
+              <span class="size-value"><span id="wetHeight">10.0</span> cm</span>
+            </div>
+          </div>
+          <div class="size-divider"></div>
+          <div class="shrink-meta">
+            <span id="clayLabel">백토</span> · 수축률 <span id="shrinkRate">12</span>%
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-float ui-mobile-only">
+        <button type="button" class="btn btn-reset" id="btnReset">초기화</button>
+        <div class="history-btns" aria-label="실행 취소">
+          <button type="button" class="btn btn-icon" id="btnUndoM" disabled title="되돌아가기" aria-label="되돌아가기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+            </svg>
+          </button>
+          <button type="button" class="btn btn-icon" id="btnRedoM" disabled title="되돌리기" aria-label="되돌리기">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 14l5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13"/>
+            </svg>
+          </button>
+        </div>
+        <button type="button" class="btn" id="btnSmooth">다듬기</button>
+        <button type="button" class="btn btn-toggle" id="btnShrinkPreviewM" aria-pressed="false" title="수축률을 반영한 소성 후 크기 미리보기">수축률 반영</button>
+        <button type="button" class="btn btn-toggle" id="btnSizeCompareM" aria-pressed="false" title="신용카드(86×54×0.76mm)로 크기 비교">크기확인</button>
+      </div>
+    </div>
+
+    <div id="hud">
+      <div class="brand">
+        <div class="brand-name">ClaySize Studio</div>
+        <div class="brand-sub" id="brandPreset">접시 · 백토</div>
+        <div class="brand-hint">조각: 드래그 · 회전: 빈 곳 · 확대: 두 손가락</div>
+      </div>
+
+      <div id="bottomDock">
+        <div class="studio-dock ui-desktop-only">
+          <div class="studio-dock__row studio-dock__row--tools">
+            <div class="dock-block">
+              <span class="dock-block__label">기록</span>
+              <div class="dock-block__body">
+                <div class="history-btns" aria-label="실행 취소">
+                  <button type="button" class="btn btn-icon" id="btnUndo" disabled title="되돌아가기" aria-label="되돌아가기">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                    </svg>
+                  </button>
+                  <button type="button" class="btn btn-icon" id="btnRedo" disabled title="되돌리기" aria-label="되돌리기">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M15 14l5-5-5-5"/><path d="M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13"/>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="dock-block">
+              <span class="dock-block__label">편집</span>
+              <div class="dock-block__body dock-block__body--actions">
+                <button type="button" class="btn" id="btnSmoothDock">다듬기</button>
+                <button type="button" class="btn btn-toggle" id="btnShrinkPreviewDock" aria-pressed="false" title="수축률을 반영한 소성 후 크기 미리보기">수축률 반영</button>
+                <button type="button" class="btn btn-toggle" id="btnSizeCompareDock" aria-pressed="false" title="신용카드(86×54×0.76mm)로 크기 비교">크기확인</button>
+                <button type="button" class="btn btn-reset" id="btnResetDesk">초기화</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="slidersRow">
+        <div id="heightPanel">
+          <div class="panel-label">높이</div>
+          <div id="vSliderWrap">
+            <input type="range" id="heightSlider" min="0.5" max="40" value="10" step="0.5">
+            <div id="barDot"></div>
+          </div>
+          <div class="num-row">
+            <input class="num-input" type="number" id="heightInput" value="10" min="0.5" max="40" step="0.5">
+            <span class="unit">cm</span>
+          </div>
+          <div class="panel-hint">성형(습토) 기준</div>
+        </div>
+        <div id="widthPanel">
+          <span class="panel-label">너비</span>
+          <input type="range" id="widthSlider" min="0.5" max="40" value="10" step="0.5">
+          <div class="num-row">
+            <input class="num-input" type="number" id="widthInput" value="10" min="0.5" max="40" step="0.5">
+            <span class="unit">cm</span>
+          </div>
+          <div class="panel-hint panel-hint--inline ui-desktop-only">성형(습토) 기준</div>
+        </div>
+      </div>
+
+      <div id="status">준비됨</div>
+    </div>
+  </div>
+</div>
+
+<dialog id="resetDialog" class="confirm-dialog" aria-labelledby="resetDialogTitle">
+  <div class="confirm-dialog-inner">
+    <h2 id="resetDialogTitle" class="confirm-dialog-title">초기화 하시겠습니까?</h2>
+    <p class="confirm-dialog-desc">지금까지 만든 형태가 처음 불러온 프리셋으로 돌아갑니다.</p>
+    <div class="confirm-dialog-actions">
+      <button type="button" class="btn" id="resetDialogCancel">취소</button>
+      <button type="button" class="btn btn-reset" id="resetDialogConfirm">초기화</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/clay-data.js"></script>
+<script src="js/studio.js"></script>
+<script src="js/setup.js"></script>
+</body>
+</html>

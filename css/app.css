@@ -1,0 +1,39 @@
+body.view-setup {
+  overflow: auto !important;
+  height: auto !important;
+  min-height: 100dvh;
+}
+
+body.view-studio {
+  overflow: hidden !important;
+  width: 100%;
+  height: 100%;
+}
+
+#studioScreen {
+  display: none;
+  width: 100%;
+  height: 100dvh;
+}
+
+body.view-studio #setupScreen {
+  display: none;
+}
+
+body.view-studio #studioScreen {
+  display: block;
+}
+
+#setupScreen {
+  min-height: 100dvh;
+}
+
+#studioScreen #app {
+  width: 100%;
+  height: 100dvh;
+}
+
+.back-link {
+  font-family: inherit;
+  cursor: pointer;
+}
